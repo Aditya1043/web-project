@@ -1,0 +1,297 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <style media="screen">
+    .fa-set{
+      font-size : 14px;
+      padding-right : 0px;
+    }
+    .btn{
+      border-radius : 0;
+    }
+    #page-content-wrapper {
+      left : 0px;
+      position: absolute;
+      padding: 15px;
+      width: 100%;
+      overflow-x: hidden;
+  }
+  .community-header-top {
+      width: 100%;
+      background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+      height: 180px;
+  }
+  .community-head-btn {
+      background-color: rgba(255,255,255,0.1);
+      color: #fff;
+      margin-left: 100px;
+      border: 1px solid #fff;
+  }
+  a.active-icon {
+      border: 1px solid #fff !important;
+      color: #fff !important;
+      border-bottom: 4px solid #fff !important;
+      background-color: rgba(255,255,255,0.1) !important;
+  }
+  .community-panel-main-div {
+      border: 0;
+      border-radius: 0;
+      margin-top: 50px;
+  }
+  .community-panel-heading {
+      border-radius: 0;
+      background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+  }
+  .community-panel-btn {
+      color: #fff;
+      background: transparent;
+      border-color: #fff;
+      transition: all .4s ease;
+      -webkit-transition: all .4s ease;
+  }
+  .community-div {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      border-color: #CCCCCC;
+  }
+  .comnametxt {
+      margin-top: 25px;
+      font-weight: 600;
+      /* color: #7D7D7D; */
+      text-decoration: none;
+      word-wrap: break-word;
+      text-transform: capitalize;
+  }
+  .community-div {
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      border-color: #CCCCCC;
+  }
+  .community-short-btn {
+      float: right;
+      margin-top: 25px;
+      color: #7D7D7D;
+      font-size: 15px;
+      cursor: pointer !important;
+      float: right;
+      text-decoration: none;
+      text-transform: capitalize;
+  }
+  .comnametxt {
+      margin-top: 25px;
+      font-weight: 600;
+      /* color: #7D7D7D; */
+      text-decoration: none;
+      word-wrap: break-word;
+      text-transform: capitalize;
+      color: #337ab7;
+  }
+  a {
+      color: #337ab7;
+      text-decoration: none;
+  }
+  </style>
+</head>
+
+<body>
+<% include partials/userheader %>
+<div id="main">
+<div id="page-content-wrapper" style="padding:0;margin-top:60px"> <!--Margin Top is new-->
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+
+
+
+<div class="community-header-top" style="height:50px;padding-top:6px">
+<div class="col-sm-12 community-sub-head">
+    <a class="btn community-head-btn active" href="/usercommunity">
+      <i class="fa fa-users"></i>
+    </a>
+    <a class="btn community-head-btn" style="margin-left:10px" href="/showcommunity">
+      <i class="fa fa-search"></i>
+    </a>
+</div>
+</div>
+<div class="container" style="padding:0">
+<div class="col-sm-12">
+  <div class="panel panel-default allSidesSoft community-panel-main-div">
+    <div class="panel-heading community-panel-heading">
+      
+        <p style="color:white;">My Communities</p>
+      
+    </div>
+    <div class="panel-body" style="padding-bottom:0">
+      
+    </div>
+
+    <div class="panel-body" style="padding-top:0;padding-bottom:0">
+        <center>
+          
+        </center>
+        <div id="community-that-am-in">
+
+          <!--Joined Community-->
+        </div>
+
+    <div class="panel-body" style="padding-top:0">
+      <div id="my-pending-commuity">
+
+        <!--Pending Community-->
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<br>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+
+<script>
+<% include partials/script %>
+var comss=new XMLHttpRequest();
+comss.addEventListener('load',function()
+{
+  var data=JSON.parse(comss.responseText);
+  for(i=0;i<data.length;i++)
+  {
+      var div=document.getElementById("community-that-am-in");
+      var div1=document.createElement("div");
+      div1.setAttribute("class","col-sm-12 col-xs-12 joinedCommunity community-div");
+      div1.setAttribute("style","margin-top:5px;");
+      var subdiv1=document.createElement("div");
+      subdiv1.setAttribute("class","col-sm-1 col-xs-3");
+      subdiv1.setAttribute("style","padding:10px;z-index:1");
+      var a1=document.createElement("a");
+      a1.setAttribute("href","#");
+      var img1=document.createElement("img");
+      img1.setAttribute("src",data[i].path);
+      img1.setAttribute("style","height: 40px;display: block");
+      a1.appendChild(img1);
+      subdiv1.appendChild(a1);
+      var subdiv2=document.createElement("div");
+      subdiv2.setAttribute("class","col-sm-10 col-xs-7");
+      subdiv2.setAttribute("style","padding-top:25px;padding-bottom:5px");
+      var a2=document.createElement("a");
+      a2.setAttribute("class","comnametxt");
+      a2.setAttribute("href","#");
+      a2.innerHTML=data[i].name;
+      var a3=document.createElement("a");
+      a3.setAttribute("class","comnametxt-user");
+      a3.setAttribute("href","memlist");
+      a3.setAttribute("id","info"+(i+1));
+      a3.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;Members("+data[i].users.length+")";
+      subdiv2.appendChild(a2);
+      subdiv2.appendChild(a3);
+      div1.appendChild(subdiv1);
+      div1.appendChild(subdiv2);
+      div.appendChild(div1);
+  }
+  for(let i=0;i<data.length;i++)
+    {
+        let info=document.getElementById("info"+(i+1));
+        info.onclick=function()
+        {
+              let reqqq=new XMLHttpRequest();
+              reqqq.open('POST','/setcomid');
+              reqqq.setRequestHeader('Content-Type','application/json');
+              reqqq.send(JSON.stringify({'id':data[i]._id}));
+        }
+  }
+});
+comss.open('GET','/getjoincomm');
+comss.send();
+
+var comsss=new XMLHttpRequest();
+comsss.addEventListener('load',function()
+{
+  var data=JSON.parse(comsss.responseText);
+  for(i=0;i<data.length;i++)
+  {
+      var div=document.getElementById("community-that-am-in");
+      var div1=document.createElement("div");
+      div1.setAttribute("class","col-sm-12 col-xs-12 joinedCommunity community-div");
+      div1.setAttribute("style","margin-top:5px;");
+      var subdiv1=document.createElement("div");
+      subdiv1.setAttribute("class","col-sm-1 col-xs-3");
+      subdiv1.setAttribute("style","padding:10px;z-index:1");
+      var a1=document.createElement("a");
+      a1.setAttribute("href","#");
+      var img1=document.createElement("img");
+      img1.setAttribute("src",data[i].path);
+      img1.setAttribute("style","height: 40px;display: block");
+      a1.appendChild(img1);
+      subdiv1.appendChild(a1);
+      var subdiv2=document.createElement("div");
+      subdiv2.setAttribute("class","col-sm-10 col-xs-7");
+      subdiv2.setAttribute("style","padding-top:25px;padding-bottom:5px");
+      var label=document.createElement("label");
+      label.setAttribute("class","label label-danger");
+      label.innerHTML="Pending";
+      var a2=document.createElement("a");
+      a2.setAttribute("class","comnametxt");
+      a2.setAttribute("href","#");
+      a2.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;"+data[i].name;
+      var a3=document.createElement("a");
+      a3.setAttribute("class","comnametxt-user");
+      a3.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;Members("+data[i].users.length+")";
+      subdiv2.appendChild(label);
+      subdiv2.appendChild(a2);
+      subdiv2.appendChild(a3);
+      var subdiv3=document.createElement("div");
+      subdiv3.setAttribute("class","col-sm-1 col-xs-2");
+      subdiv3.setAttribute("style","padding:0");
+      var a4=document.createElement("a");
+      a4.setAttribute("class","community-short-btn");
+      a4.setAttribute("id","cancel"+(i+1));
+      a4.setAttribute("style","float:right");
+      var label1=document.createElement("label");
+      label1.setAttribute("class","label label-danger");
+      label1.setAttribute("style","cursor:pointer !important;");
+      var ion=document.createElement("i");
+      ion.setAttribute("class","fa fa-times");
+      label1.appendChild(ion);
+      a4.appendChild(label1);
+      subdiv3.appendChild(a4);
+      div1.appendChild(subdiv1);
+      div1.appendChild(subdiv2);
+      div1.appendChild(subdiv3);
+      div.appendChild(div1);
+  }
+  for(let i=0;i<data.length;i++)
+  {
+      let elem=document.getElementById("cancel"+(i+1));
+      elem.onclick=function()
+      {
+          var reqqq=new XMLHttpRequest();
+          reqqq.addEventListener('load',function()
+          {
+            location.reload();
+          });
+          reqqq.open('POST','/cancelreq');
+          reqqq.setRequestHeader('Content-Type','application/json');
+          reqqq.send(JSON.stringify({'id':data[i]._id}));
+      }
+  }
+});
+comsss.open('GET','/reqcomm');
+comsss.send();
+</script>
+
+<html>

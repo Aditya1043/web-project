@@ -1,0 +1,161 @@
+<html>
+<head>
+  <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  	header{
+  		height: 80px;
+  		background-color: white;
+  		padding: 10px
+  	}
+  	@media(max-width: 800px){
+  		.mobile-responsive{
+  			display: none;
+  		}
+  	}
+    .allSides
+      {
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+  </style>
+</head>
+<body>
+<% include partials/header %>
+<div id="main">
+<div id="page-content-wrapper" style="padding:0;margin-top:60px;margin-left:50px"> <!--Margin Top is new-->
+         <div class="container-fluid page-content-div" style="padding:0">
+            <div class="row">
+               <div class="col-lg-12 scoll-possible" style="padding:0">
+<div style="margin-left:20px;margin-right:20px">
+
+<div class="modal fade" id="delete" role="dialog" style="z-index:9999">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-body">
+      <!------------------------------------------------------------------------------------>
+      <div class="form-horizontal"> <!-- form -->
+        <div class="jconfirm-title-c">
+    <span class="jconfirm-icon-c"></span>
+    <span class="jconfirm-title" id="what">Delete Tag!</span>
+    </div>
+        <div class="jconfirm-content" id="jconfirm-box86121">
+    <div id="sure"></div>
+    </div>
+  <div class="jconfirm-buttons">
+  <button type="button" class="btn btn-success" id="yes" data-dismiss="modal">Yes</button>
+  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+  </div>
+      </div> <!-- form -->
+      <!---------------------------------------------------------------------------------->
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div class="form-control allSides" id="roleFilter" style="float: left;width:90px;font-weight:bold;">
+          Tags List
+        </div>
+
+
+        <button onclick="refresh()" class="btn btn-default" style="float: right;background-color: #2D312C;color: #fff">
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </button>
+        <br>
+        <br>
+        <br>
+        
+        <div class="table-wrapper">
+            <div id="usertable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                <table id="datatable" class="table table-striped table-bordered nowrap dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th>Tag Name</th>
+                        <th>Created By</th>
+                        <th>Create Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tablebody">
+                </tbody>
+                </table>
+        </div>
+        </div>
+</div>
+</div> <!--Header-->
+
+</div>
+</div>
+</div>
+</div>
+</body>
+
+<script>
+    <% include partials/script %>
+
+    function del(tr)
+    {
+      var btn=document.getElementById("yes");
+      document.getElementById("sure").innerHTML="Are you sure you want to delete "+tr.tagName;
+      btn.onclick=function()
+      {
+        var req=new XMLHttpRequest();
+        req.open("POST","/deleteTag");
+        req.setRequestHeader("Content-Type", "application/json");
+        req.onload=function()
+        {
+          refresh();
+        }
+        req.send(JSON.stringify({'id':tr._id}));
+      }
+    }
+
+    $(document).ready(function() {
+		$('#datatable').DataTable({
+			"processing": true,
+			"serverSide": true,
+			"autoWidth": false,
+			"paging":true,
+			"dataSrc":"",
+			"ajax": {
+				"url": "/tagdata",
+        "type": "POST",
+        "data": function(data){}
+			},
+			"columns": [
+				{ "data": "tagName" },
+				{ "data": "createdBy" },
+				{ "data": "date" },
+				{ "data":  null}
+			],
+			columnDefs: [
+			   {
+           targets:-1, // Start with the last
+				   render: function ( data, type, row, meta ) {
+                        data = '<td class=" tableAction"><center><button onclick=\'del('+JSON.stringify(row)+')\' id="delbtn" class="btn btn-sm deleteTagbtn" data-toggle="modal" data-target="#delete"><span class="fa fa-trash"></span></button></center></td>';
+					   return data;
+				    }
+			   }
+		   ]
+		});
+  } );
+  function refresh() 
+	{
+		$('#datatable').DataTable().ajax.reload(null, false);
+  }
+</script>
+
+</html>

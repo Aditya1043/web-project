@@ -1,0 +1,293 @@
+<hmtl>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <style type="text/css">
+  	header{
+  		height: 80px;
+  		background-color: white;
+  		padding: 10px
+  	}
+  	@media(max-width: 800px){
+  		.mobile-responsive{
+  			display: none;
+  		}
+  	}
+    .allSides
+      {
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+   .communitymembers-head-btn {
+       font-size: 16px;
+       font-weight: bold;
+       cursor: pointer;
+       padding: 4px;
+       margin-top: 2px;
+   }
+   .active-link-btn{
+     color:rgb(73, 73, 73) !important;
+   }
+   .fa-set{
+      font-size : 14px;
+      padding-right : 0px;
+    }
+    .btn{
+      border-radius : 0;
+    }
+    #page-content-wrapper {
+      left : 0px;
+      position: absolute;
+      padding: 15px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    .community-header-top {
+        width: 100%;
+        background-image: linear-gradient(to bottom, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+        height: 50px;
+    }
+    .community-head-btn {
+        background-color: rgba(255,255,255,0.1);
+        color: #fff;
+        margin-left: 100px;
+        border: 1px solid #fff;
+    }
+    a.active-icon {
+        border: 1px solid #fff !important;
+        color: #fff !important;
+        border-bottom: 4px solid #fff !important;
+        background-color: rgba(255,255,255,0.1) !important;
+    }
+    .community-panel-main-div {
+        border: 0;
+        border-radius: 0;
+        margin-top: 50px;
+    }
+    .community-panel-heading {
+        border-radius: 0;
+        background-image: linear-gradient(to top, #4ba2b7, #42a6be, #38aac6, #29adcd, #0fb1d5);
+    }
+    .community-panel-btn {
+        color: #fff;
+        background: transparent;
+        border-color: #fff;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+    }
+    .community-div {
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        border-color: #CCCCCC;
+    }
+    .comnametxt {
+        margin-top: 25px;
+        font-weight: 600;
+        /* color: #7D7D7D; */
+        text-decoration: none;
+        word-wrap: break-word;
+        text-transform: capitalize;
+    }
+    .community-div {
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        border-color: #CCCCCC;
+    }
+    .community-short-btn {
+        float: right;
+        margin-top: 25px;
+        color: #7D7D7D;
+        font-size: 15px;
+        cursor: pointer !important;
+        float: right;
+        text-decoration: none;
+        text-transform: capitalize;
+    }
+    .comnametxt {
+        margin-top: 25px;
+        font-weight: 600;
+        /* color: #7D7D7D; */
+        text-decoration: none;
+        word-wrap: break-word;
+        text-transform: capitalize;
+        color: #337ab7;
+    }
+    a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+        <% include partials/userheader %>
+        <div id="page-content-wrapper" style="padding:0;margin-top:60px"> <!--Margin Top is new-->
+            <div class="container-fluid page-content-div" style="padding:0">
+               <div class="row">
+                  <div class="col-lg-12 scoll-possible" style="padding:0">
+
+  <div class="community-header-top communityheader-profile-mobile" style="padding-top:6px;position:relative;">
+      <div class="container pc">
+      </div>
+  </div>
+   
+   <div class="container community-profile-conatiner">
+   <div class="col-sm-2 col-xs-12 center-mobile pc">
+   <a href="#">
+     <img class="img-communityprofile-pic allSides" style="background:#fff;height:100px" id="img">
+   </a>
+   </div>
+   
+   <div class="col-sm-8 communityprofile-name-pc communityprofile-system" style="margin-top: 30px">
+     <a href="#" class="communityprofile-name-pc" id="comName">
+       
+     </a>
+   </div>
+   
+   
+   <div class="col-sm-2 col-xs-12 center-mobile" style="padding-top:10px;float:right">
+   <div class="dropdown">
+     <button class="btn btn-default dropdown-toggle commuity-profile-menu-btn" type="button" data-toggle="dropdown">
+       <i class="fa fa-bars"></i>
+     </button>
+     <ul class="dropdown-menu custom-commuity-dropdown dropdown-menu-right" style="margin-top:40px">
+   
+       
+         <li>
+             <a href="#" class="community-profile-option-btn">
+               Discussions
+             </a>
+         </li>
+       
+   
+       
+   
+         <li>
+             <a href="#" class="community-profile-option-btn">
+               Community Profile
+             </a>
+         </li>
+   
+         <li>
+             <a href="#" class="community-profile-option-btn">
+               Community Members
+             </a>
+         </li>
+   
+       </ul>
+   </div>
+   </div>
+   
+   </div>
+   <center>
+       <hr style="border-top:2px solid #E6E6E6;width:85%;margin-top:0">
+   </center>
+  
+   <div class="container">
+   
+   <div style="margin-top:20px;margin-bottom:50px">
+     <div class="col-sm-3 col-md-3 col-xs-4 col-lg-2">
+       <a class="communitymembers-head-btn active-link-btn" onclick="AllAdminList()" id="admins-list-btn">
+         Managers (1)
+       </a>
+     </div>
+     <div class="col-sm-3 col-md-3 col-xs-4 col-lg-2">
+       <a class="communitymembers-head-btn" onclick="AllUsersList()" id="users-list-btn"></a>
+     </div>
+     <div class="col-sm-12">
+         <div class="col-sm-12 col-xs-12 allcoms community-user-div OwnerDivMain" style="margin-top: 5px; display: inline;">
+              <div class="col-sm-2 col-xs-5" style="padding:5px;">
+                  <a href="#">
+                    <img src="" class="community-member-pic" id="ownerimg">
+                  </a>
+              </div>
+              <div class="col-sm-9 col-xs-7 scrollable">
+                  <a class="comusername" href="#">789894651</a>
+              </div>
+         </div>
+         <div id="comUsersList">
+   
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   </div>
+   
+   </div>
+   </div>
+   </div>
+   </div> <!--Header-->
+</body>
+
+<script>
+<% include partials/script %>
+var img=document.getElementById("img");
+var comName=document.getElementById("comName");
+var users=document.getElementById("users-list-btn");
+var ownerimg=document.getElementById("ownerimg");
+var details=new XMLHttpRequest();
+details.addEventListener('load',function()
+{
+  var data=JSON.parse(details.responseText);
+  console.log(data);
+  img.setAttribute("src",data[0].path);
+  comName.innerHTML=data[0].name;
+  users.innerHTML="Members ("+data[0].users.length+")";
+});
+details.open('GET','/getdetails');
+details.send();
+
+var comss=new XMLHttpRequest();
+comss.addEventListener('load',function()
+{
+  var data=JSON.parse(comss.responseText);
+  for(i=0;i<data.length;i++)
+  {
+      var div=document.getElementById("community-that-am-in");
+      var div1=document.createElement("div");
+      div1.setAttribute("class","col-sm-12 col-xs-12 joinedCommunity community-div");
+      div1.setAttribute("style","margin-top:5px;");
+      var subdiv1=document.createElement("div");
+      subdiv1.setAttribute("class","col-sm-1 col-xs-3");
+      subdiv1.setAttribute("style","padding:10px;z-index:1");
+      var a1=document.createElement("a");
+      a1.setAttribute("href","#");
+      var img1=document.createElement("img");
+      img1.setAttribute("src",data[i].path);
+      img1.setAttribute("style","height: 40px;display: block");
+      a1.appendChild(img1);
+      subdiv1.appendChild(a1);
+      var subdiv2=document.createElement("div");
+      subdiv2.setAttribute("class","col-sm-10 col-xs-7");
+      subdiv2.setAttribute("style","padding-top:25px;padding-bottom:5px");
+      var a2=document.createElement("a");
+      a2.setAttribute("class","comnametxt");
+      a2.setAttribute("href","#");
+      a2.innerHTML=data[i].name;
+      var a3=document.createElement("a");
+      a3.setAttribute("class","comnametxt-user");
+      a3.setAttribute("href","memlist");
+      a3.setAttribute("id","info"+(i+1));
+      a3.innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;Members("+data[i].users.length+")";
+      subdiv2.appendChild(a2);
+      subdiv2.appendChild(a3);
+      div1.appendChild(subdiv1);
+      div1.appendChild(subdiv2);
+      div.appendChild(div1);
+  }
+});
+comss.open('GET','/getjoincomm');
+comss.send();
+</script>
+</html>

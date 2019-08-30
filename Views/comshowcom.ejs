@@ -1,0 +1,186 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style type="text/css">
+        header{
+            height: 80px;
+            background-color: white;
+            padding: 10px
+        }
+        .community-name {
+         border: 0;
+         font-family: 'Open Sans', sans-serif;
+         font-weight: bold;
+         word-wrap: break-word;
+         font-size: 17px;
+         padding:12px 0 0 0;
+         outline: none !important;
+         background-color: rgba(0, 0, 0, 0);
+     }
+     .community-description {
+         border: 0;
+         font-family: 'Open Sans', sans-serif;
+         word-wrap: break-word;
+         font-size: 16px;
+         color: #000;
+         outline: none !important;
+         background-color: rgba(0, 0, 0, 0);
+     }
+     .totalUsers {
+         padding:0;
+         margin:0;
+         font-weight: 600;
+         color: #7D7D7D;
+         text-decoration: none;
+         word-wrap: break-word;
+         text-transform: capitalize;
+     }
+     .community-description-full{
+       display:none;
+     }
+     @media(max-width:768px){
+       .community-name{
+           border: 0;
+           font-family: 'Open Sans', sans-serif;
+           font-weight: bold;
+           padding:15px 0 0 5px;
+           overflow:scroll;
+           word-wrap: break-word;
+           font-size: 15px;
+           color: #000;
+           outline: none !important;
+           background-color: rgba(0, 0, 0, 0);
+       }
+     }
+     .allSides
+      {
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+    </style>
+</head>
+
+<body>
+        <% include partials/communityheader %>
+        <div id="page-content-wrapper" style="padding:0;margin-top:60px"> <!--Margin Top is new-->
+            <div class="container-fluid page-content-div" style="padding:0">
+               <div class="row">
+                  <div class="col-lg-12 scoll-possible" style="padding:0">
+   
+
+   <div class="community-header-top" style="height:50px;padding-top:6px;margin-left:115px">
+     <div class="col-sm-4 community-sub-head">
+         <a class="btn community-head-btn" href="/community">
+           <i class="fa fa-users"></i>
+         </a>
+         <a class="btn community-head-btn active" style="margin-left:10px" href="/comshowcom">
+           <i class="fa fa-search"></i>
+         </a>
+     </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   <ul id="ul">
+   </ul>
+</body>
+
+<script>
+      <% include partials/script %>
+      var ul=document.getElementById("ul");
+      var all=new XMLHttpRequest();
+			all.open("GET","/allcom");
+			all.onload=function()
+			{
+        var data=JSON.parse(all.responseText);
+        console.log(data);
+        for(var i=0;i<data.length;i++)
+        {
+          var li = document.createElement('li');
+          var div = document.createElement('div');
+          div.setAttribute('class' , 'container mainDivDiscover-container');
+          var div1=document.createElement("div");
+          div1.setAttribute("class","panel community-show-item panel-default allSidesSoft");
+          div1.setAttribute("style","height:150px;padding:10px")
+          var divforpic = document.createElement('div');
+          divforpic.setAttribute('class' , 'col-sm-2 col-xs-3 col-lg-1 col-md-2');
+          divforpic.setAttribute("style","padding:10px")
+          var p1 = document.createElement('a');
+          p1.innerHTML = data[i].name;
+          p1.setAttribute('class' , 'community-name');
+          p1.setAttribute("id","info"+(i+1));
+          var commpicc = document.createElement('img');
+          commpicc.setAttribute('class' , 'allSides');
+          commpicc.setAttribute('src' , data[i].path);
+          commpicc.setAttribute("style","width:80px;height:80px");
+          var p = document.createElement('p');
+          p.setAttribute('class' , 'community-description');
+          p.innerHTML = data[i].description;
+          var joinbtn = document.createElement('button');
+          joinbtn.setAttribute('class' , 'btn btn-primary btn-sm pull-right');
+          joinbtn.setAttribute("id",i+1);
+          var br = document.createElement('br');
+          if(data[i].rule=='D')
+          {
+            joinbtn.innerHTML = 'JOIN';
+          }
+          else
+          {
+            joinbtn.innerHTML = 'ASK TO JOIN';
+          }
+          divforpic.appendChild(commpicc);
+          div.appendChild(div1);
+          div1.appendChild(divforpic);
+          div1.appendChild(p1);
+          div1.appendChild(p);
+          div1.appendChild(joinbtn);
+          li.appendChild(div);
+          li.appendChild(br);
+          li.appendChild(br);
+          ul.appendChild(li);
+        }
+        for(let i=0;i<data.length;i++)
+        {
+          let elem=document.getElementById(i+1);
+          elem.onclick=function()
+            {
+                  let reqqq=new XMLHttpRequest();
+                  reqqq.addEventListener('load',function()
+                  {
+                    window.location.reload(true);
+                  });
+                  reqqq.open('POST','/joincomm');
+                  reqqq.setRequestHeader('Content-Type','application/json');
+                  reqqq.send(JSON.stringify({'id':data[i]._id,'rule':data[i].rule}));
+            }
+        }
+        for(let i=0;i<data.length;i++)
+        {
+            let info=document.getElementById("info"+(i+1));
+            info.onclick=function()
+            {
+                  let reqqq=new XMLHttpRequest();
+                  reqqq.addEventListener('load',function()
+                  {
+                    window.location='/comprofile'
+                  });
+                  reqqq.open('POST','/setcomid');
+                  reqqq.setRequestHeader('Content-Type','application/json');
+                  reqqq.send(JSON.stringify({'id':data[i]._id}));
+            }
+        }
+			}
+			all.send();
+</script>
+</html>

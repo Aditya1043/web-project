@@ -1,0 +1,188 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+	body{
+		margin: 0;
+		padding: 0;
+		line-height: 1.42857143;
+	}
+	.d1{
+		top:0;
+		background-color: #222D3C;
+		position:fixed;
+		height: 60px;
+		width: 100%;
+		padding: 0px 15px;
+		z-index:1;
+		padding-top: 15px;
+	}
+	.aa{
+		float: left;
+		color: #f2f2f2;
+		text-align: center;
+		padding-left: 10px;
+		padding-right: 60px;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.d1 span{
+		color: white;
+	}
+	.d1 img{
+		cursor: pointer;
+		width: 40px;
+		margin-left: 30px;
+		margin-right: 10px;
+		float: right;
+		border-radius: 50%;
+	}
+	.sadmin{
+		float: right;
+		padding: .3em .50em .3em;
+		font-size: 10px;
+		font-weight: 800;
+		line-height: 1;
+		border-radius: 4px;
+	}
+	.d2{
+		height: 100%;
+		width: 50px;;
+		position: fixed;
+		z-index: 1;
+		top: 60px;
+		left: 0;
+		background-color: #000000;
+		overflow-x: hidden;
+		transition: 0.5s;
+	}
+
+	.d2 a{	
+		display: block; 
+		padding: 11px 4px 11px 15px;
+		text-decoration: none;
+		color: #999999;
+		transition: 0.1s;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 15px;
+		white-space: nowrap;
+		cursor: pointer;
+	}
+
+	.fa{
+		font-size: 21px;
+		padding-right: 10px;
+	}
+	.d2 a:hover{
+		background-color: #111; 
+		border-left= 1 solid;
+		border-left-color: red;
+	}
+	.active{
+		background-color: #337AB7; 
+	}
+	.d2 img{
+		width: 60px;
+		height: 60px;
+	}
+	#act{
+		color: white;
+	}
+</style>
+</head>
+<body>
+<div class="modal fade" id="switch" role="dialog">
+		<div class="modal-dialog">
+		
+			<div class="modal-content">
+			<div class="modal-body">
+			<!------------------------------------------------------------------------------------>
+			<div class="form-horizontal"> <!-- form -->
+				<div class="jconfirm-title-c">
+			<span class="jconfirm-icon-c"></span>
+			<span class="jconfirm-title" id="what">Switch as Admin</span>
+			</div>
+				<div class="jconfirm-content" id="jconfirm-box86121">
+			<div id="sure">Do you really want to switch state...</div>
+			</div>
+		<div class="jconfirm-buttons">
+		<a href="http://localhost:3225/home" type="button" class="btn btn-success" id="yes">Yes</a>
+		<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+		</div>
+			</div> <!-- form -->
+			<!---------------------------------------------------------------------------------->
+			</div>
+			</div>
+		</div>
+	</div>
+
+<div class="modal fade" id="log" role="dialog">
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+		<div class="modal-body">
+		<!------------------------------------------------------------------------------------>
+		<div class="form-horizontal"> <!-- form -->
+			<div class="jconfirm-title-c">
+		<span class="jconfirm-icon-c"></span>
+		<span class="jconfirm-title" id="what">Confirm Logout!</span>
+		</div>
+			<div class="jconfirm-content" id="jconfirm-box86121">
+		<div>Do you really want logout?</div>
+		</div>
+	<div class="jconfirm-buttons">
+	<a href="http://localhost:3225/logout" type="button" class="btn btn-success">Yes</a>
+	<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+	</div>
+		</div> <!-- form -->
+		<!---------------------------------------------------------------------------------->
+		</div>
+		</div>
+	</div>
+</div>
+
+
+	<div id="div1" class="d1">
+		<a href="#" class="aa">AA</a>
+		<span style="cursor:pointer;font-size: 20px;" onclick="funcNav()">&#9776;</span>
+		<a href="http://localhost:3225/userhome"><img src="default.png" style="height: 40px;display: block" id="headimage"></a>
+		<span id="headlogin" class="sadmin" style="background-color: #5cb85c;margin-left:5px;"></span>
+		<span class="sadmin" id="headname" style="background-color: #f0ad4e;"></span>
+	</div>
+	
+	<div class="d2" id="div">
+		<a href="#" onclick="funcNav()"><span class="fa"><i class="fa fa-bars"></i></span>AA</a>
+		<a href="http://localhost:3225/userhome"><span class="fa"><i id="act" class="fa fa-home"></i></span>Home</a>
+		<a href="http://localhost:3225/usercommunity"><span class="fa"><i class="fa fa-list-alt"></i></span>Community List</a>
+        <a data-toggle="modal" data-target="#switch" id="sss" style="display: none"><span class="fa-stack fa-lg pull-left"><i class="fa fa-toggle-on"></i></span>Switch As Admin</a>
+		<a href="http://localhost:3225/userchangepass"><span class="fa"><i class="fa fa-lock"></i></span>Change Password</a>
+		<a data-toggle="modal" data-target="#log"><span class="fa"><i class="fa fa-sign-out"></i></span>Logout</a> 
+	</div>
+</body>
+<script>
+	var switchchk= new XMLHttpRequest();
+	switchchk.open("GET", "/data");
+	switchchk.onload=function()
+	{
+		var info=(JSON.parse(switchchk.responseText));
+		if(info[0].role=="admin")
+		{
+			document.getElementById("sss").style.display="block";
+		}
+	};
+	switchchk.send();
+</script>
+
+</html>

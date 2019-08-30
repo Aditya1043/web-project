@@ -1,0 +1,28 @@
+function funcNav()
+{
+	var div=document.getElementById('div');
+	if(div.style.width=="250px")
+	{
+		div.style.width="50px";
+		document.getElementById("main").style.marginLeft= "50px";
+	}
+	else
+	{
+		div.style.width="250px";
+		document.getElementById("main").style.marginLeft = "250px";
+	}
+}
+var headname=document.getElementById("headname");
+var headimage=document.getElementById("headimage");
+var headlogin=document.getElementById("headlogin");
+var headdata= new XMLHttpRequest();
+headdata.open("GET", "/data");
+headdata.onload=function()
+{
+	var info=(JSON.parse(headdata.responseText));
+	headname.innerHTML=info[0].role;
+	headlogin.innerHTML=info[0].name;
+	if(info[0].path!=null)
+		headimage.setAttribute("src",info[0].path.substr(6));
+};
+headdata.send();
